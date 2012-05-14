@@ -1,0 +1,6 @@
+name = Views Row Cache
+description = Provides a Views row style for nodes that caches rows individually.
+core = 7.x
+package = Views
+dependencies[] = views
+files[] = views_rowcache_plugin_node_view.inc
