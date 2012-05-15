@@ -48,7 +48,6 @@ class views_rowcache_plugin_node_view extends views_plugin_row_node_view {
       // Look for a cached row.
       if ($cache = cache_get($cid, 'cache_views_rowcache')) {
         $nodes_cached[$nid] = $cache->data;
-        error_log("cached object fetched");
       }
       else {
         $nids_load[] = $nid;
