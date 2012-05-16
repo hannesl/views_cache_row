@@ -39,6 +39,11 @@ class views_rowcache_plugin_node_view extends views_plugin_row_node_view {
     );
   }
 
+  function options_submit(&$form, &$form_state) {
+    // Clear all cache items belonging to this view to ensure correct cache format.
+    cache_clear_all($this->view->name . ':', 'cache_views_rowcache', true);
+  }
+
   function summary_title() {
     $text = parent::summary_title();
     $options = $this->cache_options();
