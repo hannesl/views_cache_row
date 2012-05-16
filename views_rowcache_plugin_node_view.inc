@@ -18,6 +18,13 @@ class views_rowcache_plugin_node_view extends views_plugin_row_node_view {
     return $options;
   }
 
+  function cache_options() {
+    return array(
+      'object' => t('Node objects'),
+      'rendered' => t('Rendered nodes')
+    );
+  }
+
   /**
    * Provide a form for setting options.
    */
@@ -27,12 +34,15 @@ class views_rowcache_plugin_node_view extends views_plugin_row_node_view {
       '#type' => 'radios',
       '#default_value' => $this->options['cache_mode'],
       '#title' => t('Cache mode'),
-      '#options' => array(
-        'object' => t('Node objects'),
-        'rendered' => t('Rendered nodes')
-      ),
+      '#options' => $this->cache_options(),
       '#description' => t('The <em>Node objects</em> mode caches the individual node objects after they have loaded, while <em>Rendered nodes</em> caches the fully rendered markup of each individual node. <em>Rendered nodes</em> may give a better performance boost, but can also result in problems with customized node information such as flags. <em>Node objects</em> is safer but may not give a noticable performance gain.'),
     );
+  }
+
+  function summary_title() {
+    $text = parent::summary_title();
+    $options = $this->cache_options();
+    return $text . ', ' . t('cache mode %mode', array('%mode' => $options[$this->options['cache_mode']]));
   }
 
   function pre_render($values) {
