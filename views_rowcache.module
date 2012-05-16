@@ -15,3 +15,13 @@ function views_rowcache_views_api() {
 function views_rowcache_flush_caches() {
   return array('cache_views_rowcache');
 }
+
+/**
+ * Implements hook_node_update().
+ */
+function views_rowcache_node_update($node) {
+  // When a node is updated, its cache records need to get flushed. 
+  // Unfortunately, there is no easy way to flush the cache on a node basis, 
+  // so we flush the whole cache.
+  cache_clear_all('*', 'cache_views_rowcache', true);
+}
